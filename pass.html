@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>password strenght</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .con {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            height: 70vh;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 88%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PASSWORD STRENGTH CHECKER</h1>
+    <div class="con">
+    <label for="pass">PASSWORD</label><br>
+    <input type="text" id="pass" placeholder="i.e.-Password123!" required><br>
+
+    <!-- <button type="submit" id="btn">CHECK</button> -->
+    <div id="strength-result" style="margin-top: 10px;"></div>
+    <p>Note: Password should be at least 6 characters long, contain uppercase and lowercase letters, numbers, and special characters for strong strength.</p>
+    <progress id="strength-progress" value="0" max="100" style="width: 100%;"></progress>
+    <p id="strength-text" style="margin-top: 10px;">Strength: <span id="strength-value">0</span>%</p><br>
+    <center><p>Check the boxes to see if your password meets the criteria for strong strength.</p></center>
+    <input type="checkbox" name="" id="number" style="margin-left: 10px;">number 0-9 <br>
+    <input type="checkbox" name="" id="special" style="margin-left: 10px;">special characters <br>
+    <input type="checkbox" name="" id="upper" style="margin-left: 10px;">uppercase A-Z <br>
+    <input type="checkbox" name="" id="lower" style="margin-left: 10px;">lowercase a-z <br>
+    <input type="checkbox" name="" id="length" style="margin-left: 10px;">length 6+ <br><br>
+
+    
+
+    </div>
+    <script>
+        var pas=document.getElementById('pass');
+        // var ck=document.getElementById('btn');
+        
+        // ck.addEventListener('click', function() {
+        //     var password = pas.value;
+        //     var strength = '';
+        //     var strengthColor = '';
+
+        //     if (password.length === 0) {
+        //         strength = 'Please enter a password.';
+        //         strengthColor = 'black';
+        //     } else if (password.length < 6) {
+        //         strength = 'Weak';
+        //         strengthColor = 'red';
+        //     } else if (password.match(/[a-z]/) && password.match(/[A-Z]/) && password.match(/[0-9]/) && password.match(/[\W_]/) && password.length >= 8) {
+        //         strength = 'Strong';
+        //         strengthColor = 'green';
+        //     } else if ((password.match(/[a-z]/) || password.match(/[A-Z]/)) && password.match(/[0-9]/) && password.length >= 6) {
+        //         strength = 'Medium';
+        //         strengthColor = 'orange';
+        //     } else {
+        //         strength = 'Weak';
+        //         strengthColor = 'red';
+        //     }
+
+        //     var result = document.getElementById('strength-result');
+        //     if (!result) {
+        //         result = document.createElement('div');
+        //         result.id = 'strength-result';
+        //         pas.parentNode.appendChild(result);
+        //     }
+        //     result.textContent = 'Strength: ' + strength;
+        //     result.style.color = strengthColor;
+        //     result.style.marginTop = '10px';
+        // });
+        pas.addEventListener('input', function() {
+            var password = pas.value;
+            var strength = 0;
+
+            if (password.length >= 6) {
+                strength += 20; // Length
+                document.getElementById('length').checked = true;
+            }
+            if (password.match(/[a-z]/)) {
+                strength += 20; // Lowercase letters
+                document.getElementById('lower').checked = true;
+            } else {
+                document.getElementById('lower').checked = false;
+            }
+            if (password.match(/[A-Z]/)) {
+                strength += 20; // Uppercase letters
+                document.getElementById('upper').checked = true;
+            } else {
+                document.getElementById('upper').checked = false;
+            }
+            if (password.match(/[0-9]/)) {
+                strength += 20; // Numbers
+                document.getElementById('number').checked = true;
+            } else {
+                document.getElementById('number').checked = false;
+            }
+            if (password.match(/[\W_]/)) {
+                strength += 20; // Special characters
+                document.getElementById('special').checked = true;
+            } else {
+                document.getElementById('special').checked = false;
+            }
+
+            var progress = document.getElementById('strength-progress');
+            progress.value = strength;
+             var strengthText = document.getElementById('strength-text');
+            var strengthValue = document.getElementById('strength-value');
+            strengthValue.textContent = strength;
+        });
+    </script>
+</body>
+</html>
